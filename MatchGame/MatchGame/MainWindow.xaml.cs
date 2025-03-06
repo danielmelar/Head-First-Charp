@@ -19,5 +19,32 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+
+        SetUpGame();
+    }
+
+    public void SetUpGame()
+    {
+        List<string> emojis = new List<string>()
+        {
+            "😀", "😀",
+            "😍", "😍",
+            "😉", "😉",
+            "👍", "👍",
+            "😘", "😘",
+            "😒", "😒",
+            "🤔", "🤔",
+            "😮", "😮"
+        };
+           
+        Random rand = new Random();
+
+        foreach (TextBlock textBlock in mainGrid.Children.OfType<TextBlock>())
+        {
+            int index = rand.Next(emojis.Count);
+            string nextEmoji = emojis[index];
+            textBlock.Text = nextEmoji;
+            emojis.RemoveAt(index);
+        }
     }
 }
