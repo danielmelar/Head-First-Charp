@@ -1,14 +1,5 @@
-﻿using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 namespace MatchGame;
 
 /// <summary>
@@ -46,5 +37,41 @@ public partial class MainWindow : Window
             textBlock.Text = nextEmoji;
             emojis.RemoveAt(index);
         }
+    }
+
+
+    TextBlock lastTextBlockClicked;
+    bool match = false;
+    public void TextBlock_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        /* Se for o primeiro no 
+         * par sendo clicado, veja
+         * qual TextBlock
+         * foi clicado e faça o animal desaparecer. Se 
+         * for o segudo, faça-o desaparecer(se combinar) ou 
+         * retorne o primeiro
+         * (se não combinar).
+         */
+
+	TextBlock textBlock = sender as TextBlock;
+	
+	if (match is false)
+	{
+		textBlock.Visibility = Visibility.Hidden;
+		lastTextBlockClicked = textBlock;
+		match = true;
+	}
+	else if (textBlock.Text == lastTextBlockClicked.Text)
+	{
+		textBlock.Visibility = Visibility.Hidden;
+		match = false;
+	}
+	else
+	{
+		lastTextBlockClicked.Visibility = Visibility.Visible;
+		match = false;
+	}
+
+
     }
 }
